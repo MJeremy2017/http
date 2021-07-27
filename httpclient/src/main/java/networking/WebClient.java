@@ -1,3 +1,5 @@
+package networking;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -8,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 public class WebClient {
     private HttpClient httpClient;
 
-    public void WebClient() {
+    public WebClient() {
         httpClient =  HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
                 .build();
@@ -19,6 +21,7 @@ public class WebClient {
                 .uri(URI.create(url))
                 .timeout(Duration.ofSeconds(10))
                 .POST(HttpRequest.BodyPublishers.ofByteArray(payLoad))
+                .header("X-Debug", "true")
                 .build();
 
         return httpClient
